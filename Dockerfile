@@ -1,5 +1,8 @@
 FROM php:8.2-apache
 
+# Set Render port
+ENV PORT 80
+
 # System dependencies
 RUN apt-get update && apt-get install -y \
     git unzip curl libonig-dev libzip-dev zip npm default-mysql-client \
@@ -22,11 +25,11 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
 
-# Permissions
+# Set permissions
 RUN chown -R www-data:www-data storage bootstrap/cache
 
 # Expose port for Render
 EXPOSE 80
 
-# Use the wait-for-db script to start the app
+# Use wait-for-db.sh to start
 CMD ["./wait-for-db.sh"]
