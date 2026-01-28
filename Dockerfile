@@ -22,13 +22,15 @@ RUN curl -sS https://getcomposer.org/installer | php \
 
 RUN composer install --no-dev --optimize-autoloader --no-interaction
 
-# ---- IMPORTANT: Vite URLs (HTTPS FIX) ----
+# ✅ HTTPS Environment Variables
+ENV APP_ENV=production
 ENV APP_URL=https://inventory-mvp-1.onrender.com
-ENV VITE_APP_URL=https://inventory-mvp-1.onrender.com
-ENV VITE_BASE_URL=https://inventory-mvp-1.onrender.com
-ENV VITE_API_URL=https://inventory-mvp-1.onrender.com/api
+ENV ASSET_URL=https://inventory-mvp-1.onrender.com
 
-# Build frontend
+# Vite URLs
+ENV VITE_APP_URL=https://inventory-mvp-1.onrender.com
+
+# Build frontend (ye environment variables use karegi)
 RUN npm install
 RUN npm run build
 

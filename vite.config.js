@@ -17,4 +17,5 @@ export default defineConfig({
             ignored: ['**/storage/framework/views/**'],
         },
     },
+    base: process.env.VITE_APP_URL || '/',
 });
