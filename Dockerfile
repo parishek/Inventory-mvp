@@ -21,7 +21,12 @@ RUN curl -sS https://getcomposer.org/installer | php \
 
 RUN composer install --no-dev --optimize-autoloader
 
-# 🔥 VITE BUILD (IMPORTANT)
+# Before npm run build
+
+ENV APP_URL=https://inventory-mvp-1.onrender.com
+ENV VITE_API_URL=https://inventory-mvp-1.onrender.com/api
+ENV VITE_BASE_URL=https://inventory-mvp-1.onrender.com
+
 RUN npm install
 RUN npm run build
 
