@@ -1,7 +1,7 @@
 FROM php:8.2-apache
 
-# Set Render port
-ENV PORT 80
+# Set a default PORT (Render will override at runtime)
+ENV PORT 10000
 
 # System dependencies
 RUN apt-get update && apt-get install -y \
@@ -28,8 +28,8 @@ RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-di
 # Set permissions
 RUN chown -R www-data:www-data storage bootstrap/cache
 
-# Expose port for Render
-EXPOSE 80
+# Expose Render port dynamically
+EXPOSE $PORT
 
-# Use wait-for-db.sh to start
+# Start app via wait-for-db.sh
 CMD ["./wait-for-db.sh"]
