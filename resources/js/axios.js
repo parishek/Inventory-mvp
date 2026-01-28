@@ -1,20 +1,25 @@
 import axios from 'axios';
 
-const apiUrl=import.meta.env.VITE_API_URL;
+const apiUrl = import.meta.env.VITE_API_URL || '/api';
 
-const api=axios.create({
+const api = axios.create({
     baseURL: apiUrl,
+    withCredentials: true,
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+    }
 });
 
 api.interceptors.request.use(
-    config=>{
-        const token=localStorage.getItem('token');
-        if(token){
-            config.headers.Authorization=`Bearer ${token}`;
+    config => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
         }
         return config;
     },
-    error=>Promise.reject(error)
+    error => Promise.reject(error)
 );
 
 export default api;
